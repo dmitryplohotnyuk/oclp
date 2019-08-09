@@ -62,7 +62,7 @@
                   <v-layout mb-2>
                     <v-flex>Стандартная диаграмма:</v-flex>
                     <v-flex>
-                      <v-btn @click="printPage(item.url)">
+                      <v-btn @click="printPage(item.name, false)">
                         <v-icon>mdi-printer-settings</v-icon>Печать
                       </v-btn>
                       <v-btn @click="openPage(item.url)">
@@ -74,7 +74,7 @@
                   <v-layout mt-2>
                     <v-flex>Увеличенная диаграмма:</v-flex>
                     <v-flex>
-                      <v-btn @click="printPage(item.urlZoom)">
+                      <v-btn @click="printPage(item.name, true)">
                         <v-icon>mdi-printer-settings</v-icon>Печать
                       </v-btn>
                       <v-btn @click="openPage(item.urlZoom)">
@@ -94,6 +94,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import printJS from 'print-js';
 
 export default {
   data() {
@@ -122,6 +123,7 @@ export default {
       'reportStatus',
       'error',
       'dataTerm',
+      'frameUrl'
       ])
   },
   methods: {
@@ -129,10 +131,16 @@ export default {
       loadData: 'singleReport/LOAD_DATA',
       resetStatus: 'singleReport/RESET_STATUS'
     }),
-    printPage(url) {
-      let printPage = window.open(url);
-      printPage.print();
+    printPage(termopara, zoom) {
+      let url = this.frameUrl;
+      url += '?zoom=' + zoom;
+      url += '&pech=' + this.pech;
+      url += '&date=' + this.date;
+      url += '&termopara=' + termopara;
 
+      printJS({printable: url, showModal: true, html: 'html'});
+      //let printPage = window.open(url);
+      //printPage.print();
     },
     openPage(url) {
       window.open(url);

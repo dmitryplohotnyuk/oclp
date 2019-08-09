@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let http = axios.create({
-	baseURL: 'http://emmielba.ddns.net/api_v2/'
+	baseURL: 'http://localhost:8000/api_v2/'
 });
 
 export default {
@@ -10,15 +10,20 @@ export default {
         reportStatus: false,
         error: null,
         dataTerm: [],
+        frameUrl: null,
     },
     getters: {
         reportStatus: (state) => state.reportStatus,
         error: (state) => state.error,
-        dataTerm: (state) => state.dataTerm
+        dataTerm: (state) => state.dataTerm,
+        frameUrl: (state) => state.frameUrl
     },
     mutations: {
         SET_DATA(state, payload) {
             state.dataTerm = payload;
+        },
+        SET_FRAME_URL(state, payload) {
+            state.frameUrl = payload;
         },
         SET_REPORT_STATUS(state, payload) {
             state.reportStatus = payload;
@@ -39,6 +44,7 @@ export default {
                 if (response.data.status) {
                     store.commit('SET_REPORT_STATUS', true);
                     store.commit('SET_DATA', response.data.dataTerm);
+                    store.commit('SET_FRAME_URL', response.data.frameUrl);
 
                 } else {
                     store.commit('SET_REPORT_STATUS', false);
