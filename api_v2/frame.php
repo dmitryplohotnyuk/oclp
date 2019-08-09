@@ -36,5 +36,4 @@ if ($zoom == false) {
             break;
     }
 }
-echo $link;
-//echo file_get_contents($link);
+echo file_get_contents($link);

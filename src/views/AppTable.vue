@@ -106,7 +106,7 @@ export default {
       ],
       date: new Date(new Date() - 24*3600*1000).toISOString().substr(0, 10),
       menu: false,
-      termoPech: null
+      termoPech: null,
     }
   },
   computed: {
@@ -138,9 +138,7 @@ export default {
       url += '&date=' + this.date;
       url += '&termopara=' + termopara;
 
-      printJS({printable: url, showModal: true, html: 'html'});
-      //let printPage = window.open(url);
-      //printPage.print();
+      printJS({printable: url, showModal: true, type: 'raw-html'});
     },
     openPage(url) {
       window.open(url);
