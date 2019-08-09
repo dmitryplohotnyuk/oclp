@@ -45,7 +45,7 @@
         </v-menu>
       </v-flex>
       <v-flex xs2>
-         <v-btn  :disabled="accessButton" @click="loadData" text class="primary">Загрузить</v-btn>
+         <v-btn  :disabled="accessButton" @click="" text class="primary">Загрузить</v-btn>
       </v-flex>
     </v-layout>
 
@@ -118,6 +118,7 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import printJS from 'print-js';
 
 export default {
   data() {
@@ -160,18 +161,19 @@ export default {
       },
       ...mapGetters('singleReport', [
       'reportStatus',
-      'error'
+      'error',
+      'printData'
       ])
   },
   methods: {
     printPage(url) {
-      let windowForPrint = window.open(url);
-      windowForPrint.print();
+      this.$store.dispatch('singleReport/LOAD_PRINT_DATA', null, { root: true });
+      printJS({printable: 'http://emmielba.ddns.net/api_v2/', showModal: true, html: 'html'});
     },
     openPage(url) {
       window.open(url);
     },
-    loadData() {
+    loadStatus() {
       this.$store.dispatch('singleReport/LOAD_STATUS', null, { root: true });
     },
   }
