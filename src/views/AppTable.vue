@@ -1,7 +1,7 @@
 <template>
    <v-container fluid grid-list-md>
      <v-layout align-center justify-center>
-      <v-flex text-xs-center xs12>
+      <v-flex text-xs-center xs9>
         <v-alert :value="true" type="warning" v-if="error">
           {{error}}
         </v-alert>
@@ -45,16 +45,16 @@
         </v-menu>
       </v-flex>
       <v-flex xs2>
-         <v-btn  :disabled="accessButton" @click="" text class="primary">Загрузить</v-btn>
+         <v-btn  :disabled="accessButton" @click="loadData" text class="primary">Загрузить</v-btn>
       </v-flex>
     </v-layout>
 
-    <v-layout align-center justify-center wrap>
+    <v-layout align-center justify-center wrap v-if="reportStatus">
         <v-flex xs5 v-for="(item,i) in dataTerm"
             :key="i">
            <v-card>
               <v-card-text>
-                <b>{{item.name}}</b>
+                <b>Термопара №{{item.name}}</b>
               </v-card-text>
               <v-card-actions>
                 <v-container>
@@ -88,37 +88,11 @@
         </v-flex>
     </v-layout>
 
-    <v-layout align-center justify-center v-show="false">
-      <v-flex text-xs-center xs9>
-        <v-expansion-panels multiple>
-          <v-expansion-panel
-            v-for="(item,i) in dataTerm"
-            :key="i"
-          >
-            <v-expansion-panel-header><b>{{item.name}}</b></v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <v-layout>
-                <v-flex>
-                  Стандартная диаграмма:
-                </v-flex>
-              </v-layout>
-              <v-layout>
-                <v-flex>
-                  Увеличенная диаграмма:
-                </v-flex>
-              </v-layout>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-flex>
-    </v-layout>
-
    </v-container>
 </template>
 
 <script>
 import {mapGetters} from 'vuex';
-import printJS from 'print-js';
 
 export default {
   data() {
@@ -130,29 +104,7 @@ export default {
       ],
       date: new Date(new Date() - 24*3600*1000).toISOString().substr(0, 10),
       menu: false,
-      termoPech: null,
-      dataTerm: [
-        {
-          name: 'Термопара №1',
-          url: 'http://localhost:8080',
-          urlZoom: 'http://emmielba.ddns.net/api/'
-        },
-        {
-          name: 'Термопара №2',
-          url: 'url',
-          urlZoom: 'url-zoom'
-        },
-        {
-          name: 'Термопара №3',
-          url: 'url',
-          urlZoom: 'url-zoom'
-        },
-        {
-          name: 'Термопара №4',
-          url: 'url',
-          urlZoom: 'url-zoom'
-        }
-      ]
+      termoPech: null
     }
   },
   computed: {
@@ -162,19 +114,20 @@ export default {
       ...mapGetters('singleReport', [
       'reportStatus',
       'error',
-      'printData'
+      'dataTerm',
       ])
   },
   methods: {
     printPage(url) {
-      this.$store.dispatch('singleReport/LOAD_PRINT_DATA', null, { root: true });
-      printJS({printable: 'http://emmielba.ddns.net/api_v2/', showModal: true, html: 'html'});
+      let printPage = window.open(url);
+      printPage.print();
+
     },
     openPage(url) {
       window.open(url);
     },
-    loadStatus() {
-      this.$store.dispatch('singleReport/LOAD_STATUS', null, { root: true });
+    loadData() {
+      this.$store.dispatch('singleReport/LOAD_DATA', {pech: this.termoPech, date: this.date}, { root: true });
     },
   }
 }
