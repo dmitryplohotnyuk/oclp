@@ -49,7 +49,46 @@
       </v-flex>
     </v-layout>
 
-    <v-layout align-center justify-center>
+    <v-layout align-center justify-center wrap>
+        <v-flex xs5 v-for="(item,i) in dataTerm"
+            :key="i">
+           <v-card>
+              <v-card-text>
+                <b>{{item.name}}</b>
+              </v-card-text>
+              <v-card-actions>
+                <v-container>
+                  <v-layout>
+                    <v-flex>Стандартная диаграмма:</v-flex>
+                    <v-flex>
+                      <v-btn @click="printPage(item.url)">
+                        <v-icon>mdi-printer-settings</v-icon>Печать
+                      </v-btn>
+                      <v-btn @click="openPage(item.url)">
+                        <v-icon>mdi-folder-open-outline</v-icon>Открыть
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-layout>
+                    <v-flex>Увеличенная диаграмма:</v-flex>
+                    <v-flex>
+                      <v-btn @click="printPage(item.urlZoom)">
+                        <v-icon>mdi-printer-settings</v-icon>Печать
+                      </v-btn>
+                      <v-btn @click="openPage(item.urlZoom)">
+                        <v-icon>mdi-folder-open-outline</v-icon>Открыть
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+               
+              </v-card-actions>
+            </v-card>
+        </v-flex>
+    </v-layout>
+
+    <v-layout align-center justify-center v-show="false">
       <v-flex text-xs-center xs9>
         <v-expansion-panels multiple>
           <v-expansion-panel
@@ -94,8 +133,8 @@ export default {
       dataTerm: [
         {
           name: 'Термопара №1',
-          url: 'url',
-          urlZoom: 'url-zoom'
+          url: 'http://localhost:8080',
+          urlZoom: 'http://emmielba.ddns.net/api/'
         },
         {
           name: 'Термопара №2',
@@ -112,8 +151,7 @@ export default {
           url: 'url',
           urlZoom: 'url-zoom'
         }
-      ],
-      panels: [0,1,2,3]
+      ]
     }
   },
   computed: {
@@ -126,9 +164,12 @@ export default {
       ])
   },
   methods: {
-    ptintPage(url) {
+    printPage(url) {
       let windowForPrint = window.open(url);
       windowForPrint.print();
+    },
+    openPage(url) {
+      window.open(url);
     },
     loadData() {
       this.$store.dispatch('singleReport/LOAD_STATUS', null, { root: true });
