@@ -51,6 +51,9 @@ export default {
                 store.commit('SET_REPORT_STATUS', false);
                 store.commit('SET_DATA', []);
             }
+        },
+        RESET_STATUS(store) {
+            store.commit('SET_REPORT_STATUS', false);
         }
     }
 }

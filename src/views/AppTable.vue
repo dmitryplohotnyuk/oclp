@@ -12,6 +12,7 @@
       <v-flex xs3>
         <v-select
           v-model="termoPech"
+          @change="resetStatus"
           :items="terms"
           label="Выбор термопечи"
           outline
@@ -45,7 +46,7 @@
         </v-menu>
       </v-flex>
       <v-flex xs2>
-         <v-btn  :disabled="accessButton" @click="loadData" text class="primary">Загрузить</v-btn>
+         <v-btn  :disabled="accessButton" @click="loadData(payload)" text class="primary">Загрузить</v-btn>
       </v-flex>
     </v-layout>
 
@@ -58,7 +59,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-container>
-                  <v-layout>
+                  <v-layout mb-2>
                     <v-flex>Стандартная диаграмма:</v-flex>
                     <v-flex>
                       <v-btn @click="printPage(item.url)">
@@ -69,8 +70,8 @@
                       </v-btn>
                     </v-flex>
                   </v-layout>
-
-                  <v-layout>
+                  <hr>
+                  <v-layout mt-2>
                     <v-flex>Увеличенная диаграмма:</v-flex>
                     <v-flex>
                       <v-btn @click="printPage(item.urlZoom)">
@@ -92,7 +93,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data() {
@@ -111,6 +112,12 @@ export default {
       accessButton() {
         return this.termoPech == null ? true : false
       },
+      payload() {
+        return {
+          pech: this.termoPech, 
+          date: this.date
+        }
+      },
       ...mapGetters('singleReport', [
       'reportStatus',
       'error',
@@ -118,6 +125,10 @@ export default {
       ])
   },
   methods: {
+    ...mapActions({
+      loadData: 'singleReport/LOAD_DATA',
+      resetStatus: 'singleReport/RESET_STATUS'
+    }),
     printPage(url) {
       let printPage = window.open(url);
       printPage.print();
@@ -125,10 +136,12 @@ export default {
     },
     openPage(url) {
       window.open(url);
-    },
-    loadData() {
-      this.$store.dispatch('singleReport/LOAD_DATA', {pech: this.termoPech, date: this.date}, { root: true });
-    },
+    }
+  },
+  watch: {
+    date(){
+      this.resetStatus();
+    }
   }
 }
 </script>
