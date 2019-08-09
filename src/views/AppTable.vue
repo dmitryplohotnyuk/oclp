@@ -45,7 +45,7 @@
         </v-menu>
       </v-flex>
       <v-flex xs2>
-         <v-btn  :disabled="accessButton" @click="ptintPage" text class="primary">Загрузить</v-btn>
+         <v-btn  :disabled="accessButton" @click="loadData" text class="primary">Загрузить</v-btn>
       </v-flex>
     </v-layout>
 
@@ -78,10 +78,11 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+
 export default {
   data() {
     return {
-      error: '',
       terms: [
         { text: "Термопечь №7", value: "7" },
         { text: "Термопечь №9", value: "9" },
@@ -118,12 +119,20 @@ export default {
   computed: {
       accessButton() {
         return this.termoPech == null ? true : false
-      }
+      },
+      ...mapGetters('singleReport', [
+      'reportStatus',
+      'error'
+      ])
   },
   methods: {
-    ptintPage() {
-      window.print();
-    }
+    ptintPage(url) {
+      let windowForPrint = window.open(url);
+      windowForPrint.print();
+    },
+    loadData() {
+      this.$store.dispatch('singleReport/LOAD_STATUS', null, { root: true });
+    },
   }
 }
 </script>
