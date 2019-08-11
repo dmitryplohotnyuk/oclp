@@ -35,7 +35,7 @@ if (file_get_contents($url)) {
                     'urlZoom' => $url . $fileZoom2,
                 ],
                 [
-                    'name' => '',
+                    'name' => '3',
                     'url' => $url . $file3,
                     'urlZoom' => $url . $fileZoom3,
                 ],

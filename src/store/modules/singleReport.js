@@ -1,8 +1,4 @@
-import axios from 'axios';
-
-let http = axios.create({
-	baseURL: 'http://localhost:8000/api_v2/'
-});
+import http from './../../plugins/http.js';
 
 export default {
     namespaced: true,
