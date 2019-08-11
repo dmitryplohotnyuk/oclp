@@ -43,8 +43,6 @@ export default {
             }
             catch(e) {
                 store.commit('SET_ERROR', e.message);
-                store.commit('SET_REPORT_STATUS', false);
-                store.commit('SET_DATA', []);
             }
         },
         
