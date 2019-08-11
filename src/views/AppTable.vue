@@ -36,7 +36,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="date" no-title scrollable>
+          <v-date-picker v-model="date" locale="RU" no-title scrollable>
             <v-spacer></v-spacer>
             <v-btn text color="primary" @click="menu = false">Отмена</v-btn>
             <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
@@ -89,7 +89,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import printJS from "print-js";
 
 export default {
   data() {
@@ -129,11 +128,11 @@ export default {
     printPage(termopara, zoom) {
       let url = this.frameUrl;
       url += "?zoom=" + zoom;
-      url += "&pech=" + this.pech;
+      url += "&pech=" + this.termoPech;
       url += "&date=" + this.date;
       url += "&termopara=" + termopara;
-
-      printJS({ printable: url, showModal: true, type: "raw-html" });
+      let printPage = window.open(url);
+      printPage.print();
     },
     openPage(url) {
       window.open(url);

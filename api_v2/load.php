@@ -11,8 +11,10 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Si
 $pech = $_GET['pech'];
 $date = $_GET['date'];
 
-//url = $url . $pech . '/' . $date . '/';
-$url = 'http://emmielba.ddns.net/api_v2/testpage1/';
+$date = str_replace('-', '', $date);
+
+$url = $url . $pech . '/' . $date . '/';
+//$url = 'http://emmielba.ddns.net/api_v2/testpage1/';
 $link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $link = stristr($link, 'load.php', true);
 $frameUrl = $link . 'frame.php';

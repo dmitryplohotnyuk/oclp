@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout>
+    <v-layout wrap>
       <v-flex xs3>
         <v-date-picker v-model="picker" :landscape="landscape" locale="RU" type="month"></v-date-picker>
       </v-flex>
@@ -29,12 +29,12 @@ export default {
     events: [
       {
         name: "Термопечт №7",
-        start: "2019-08-02",
+        start: "2019-08-06",
         color: "red"
       },
       {
         name: "Термопечт №10",
-        start: "2019-08-03",
+        start: "2019-08-05",
         color: "blue"
       },
       {

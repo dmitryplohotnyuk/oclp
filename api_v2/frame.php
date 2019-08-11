@@ -10,6 +10,7 @@ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Si
 
 $pech = $_GET['pech'];
 $date = $_GET['date'];
+$date = str_replace('-', '', $date);
 $termopara = $_GET['termopara'];
 $zoom = $_GET['zoom'];
 
@@ -36,4 +37,5 @@ if ($zoom == false) {
             break;
     }
 }
+echo '<body onLoad="window.print();">';
 echo file_get_contents($link);
