@@ -15,6 +15,11 @@ export default new Router({
       component: AppTable
     },
     {
+      path: '/oclp/viewer/',
+      name: 'AppTableLoad',
+      component: AppTable
+    },
+    {
       path: '/realtime',
       name: 'AppRealtime',
       component: AppRealtime

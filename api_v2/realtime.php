@@ -50,7 +50,7 @@ if ($task == 'terms') {
 }
 
 if ($task == 'data') {
-    if ($zoom == false) {
+    if ($zoom == 'false') {
         switch ($termopara) {
             case '1': $link = $url . 'now/' . $pech . '/zona_1.svg';
                 break;

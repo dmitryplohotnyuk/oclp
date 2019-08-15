@@ -1,6 +1,6 @@
 <?php
 
-$url = "http://emmielba.ddns.net/oclp/";
+$url = "http://192.168.9.3/oclp/";
 $file1 = 'zona1.svg';
 $file2 = 'zona2.svg';
 $file3 = 'zona3.svg';

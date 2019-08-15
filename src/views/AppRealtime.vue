@@ -66,7 +66,7 @@ export default {
     }),
     openPage(termopara, zoom) {
       let url = this.frameUrl;
-      url += "?zoom=" + zoom;
+      url += "&zoom=" + zoom;
       url += "&task=data";
       url += "&pech=" + this.termoPech;
       url += "&termopara=" + termopara;

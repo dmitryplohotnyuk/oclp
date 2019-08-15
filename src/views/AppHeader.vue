@@ -15,11 +15,6 @@
           <v-icon>mdi-clock-outline</v-icon>В реальном времени
         </v-btn>
       </v-toolbar-items>
-      <v-toolbar-items>
-        <v-btn to="/calendar" class="primary">
-          <v-icon>mdi-calendar-month</v-icon>Календарь
-        </v-btn>
-      </v-toolbar-items>
     </v-toolbar>
   </div>
 </template>

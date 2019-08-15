@@ -91,6 +91,9 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  created() {
+    this.date = new Date(new Date() - 24 * 3600 * 1000).toISOString().substr(0, 10);
+  },
   data() {
     return {
       terms: [
@@ -98,7 +101,7 @@ export default {
         { text: "Термопечь №9", value: "9" },
         { text: "Термопечь №10", value: "10" }
       ],
-      date: new Date(new Date() - 24 * 3600 * 1000).toISOString().substr(0, 10),
+      date: null,
       menu: false,
       termoPech: null
     };

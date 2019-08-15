@@ -14,7 +14,7 @@ $date = str_replace('-', '', $date);
 $termopara = $_GET['termopara'];
 $zoom = $_GET['zoom'];
 
-if ($zoom == false) {
+if ($zoom == 'false') {
     switch ($termopara) {
         case '1': $link = $url . $pech . '/' . $date . '/' . $file1;
             break;
